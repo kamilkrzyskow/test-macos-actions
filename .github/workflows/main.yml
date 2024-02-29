@@ -54,7 +54,7 @@ jobs:
       - name: Run Python stuff in order
         run: |
           python -m venv venv
-          source venv/Scripts/activate
+          ./venv/Scripts/activate
           pip install cairosvg
           python ./Windows.py
           python ./Linux.py
