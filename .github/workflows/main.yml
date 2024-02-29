@@ -6,7 +6,7 @@ on:
       - '**'
 
 jobs:
-  deploy:
+  macOS:
     runs-on: macos-latest
     steps:
       - name: Install Checkout
@@ -20,4 +20,42 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+          pip install cairosvg
           python ./macOS.py
+          python ./Linux.py
+          python ./__main__.py
+  Linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Checkout
+        uses: actions/checkout@v4
+      - name: Install Python
+        id: install-python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      - name: Run Python stuff in order
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install cairosvg
+          python ./Linux.py
+          python ./__main__.py
+  Windows:
+    runs-on: windows-latest
+    steps:
+      - name: Install Checkout
+        uses: actions/checkout@v4
+      - name: Install Python
+        id: install-python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      - name: Run Python stuff in order
+        run: |
+          python -m venv venv
+          source venv/Scripts/activate
+          pip install cairosvg
+          python ./Windows.py
+          python ./Linux.py
+          python ./__main__.py
