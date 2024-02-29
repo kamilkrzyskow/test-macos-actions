@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  deploy:
+    runs-on: macos-latest
+    steps:
+      - name: Install Checkout
+        uses: actions/checkout@v4
+      - name: Install Python
+        id: install-python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      - name: Run Python stuff in order
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          python ./macOS.py
