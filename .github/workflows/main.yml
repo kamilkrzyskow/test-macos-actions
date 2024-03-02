@@ -40,6 +40,7 @@ jobs:
           source venv/bin/activate
           pip install cairosvg
           python ./Linux.py
+          python ./Linux-Ubuntu.py
           python ./__main__.py
   Windows:
     runs-on: windows-latest
