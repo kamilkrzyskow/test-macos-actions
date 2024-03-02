@@ -1,2 +1,5 @@
 # To test if there will be a crash after import
-import cairosvg
+try:
+    import cairosvg
+except Exception as err:
+    print(repl(err))
