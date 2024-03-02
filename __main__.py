@@ -2,4 +2,4 @@
 try:
     import cairosvg
 except Exception as err:
-    print(repl(err))
+    print(repr(err))
