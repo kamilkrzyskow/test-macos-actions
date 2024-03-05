@@ -7,7 +7,14 @@ from ctypes import util
 print(f"\n---Running {os.path.basename(__file__)}---\n")
 
 
-class CustomPopen(subprocess.Popen):
+class Meta(type):
+    def __getattribute__(self, attr):
+        att = super().__getattribute__(attr)
+        print("Meta__getattribute__:", att)
+        return att
+
+
+class CustomPopen(subprocess.Popen, metaclass=Meta):
 
     def __init__(self, *args, **kwargs):
         print(f"Subprocess command:\n  {' '.join(args[0])}")
@@ -22,6 +29,11 @@ class CustomPopen(subprocess.Popen):
         else:
             print(f"  Output is empty")
         return out, _
+
+    def __class_getitem__(cls, item):
+        item = super().__class_getitem__(item)
+        print("__class_getitem__:", item)
+        return item
 
     def __getattr__(self, item):
         att = super().__getattr__(item)
