@@ -7,7 +7,7 @@ from ctypes import util
 print(f"\n---Running {os.path.basename(__file__)}---\n")
 
 
-class CustomPopen(subprocess.Popen, metaclass=Meta):
+class CustomPopen(subprocess.Popen):
 
     def __init__(self, *args, **kwargs):
         print(f"Subprocess command:\n  {' '.join(args[0])}")
