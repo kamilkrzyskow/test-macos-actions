@@ -23,8 +23,14 @@ class CustomPopen(subprocess.Popen):
             print(f"  Output is empty")
         return out, _
 
+    def __getattr__(self, item):
+        att = super().__getattr__(item)
+        print("__getattr__:", att)
+        return att
+
     def __get_attribute__(self, name_):
         att = super().__getattribute__(name_)
+        print("__getattribute__:", att)
         if name_ == "stdout":
             print("Subprocess output:")
             for line_ in att:
