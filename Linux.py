@@ -25,11 +25,24 @@ class CustomPopen(subprocess.Popen):
 
     def __getattribute__(self, name_):
         att = super().__getattribute__(name_)
-        if name_ == "stdout" and self.poll() is None:
-            print("Subprocess output:")
-            for line_ in att:
-                print(os.fsdecode(line_).rstrip())
+        if name_ == "stdout" and att is not None:
+            att.read = self.wrapper_read(att.read)
         return att
+
+    @staticmethod
+    def wrapper_read(func):
+
+        if func.__name__ == "wrapper":
+            return func
+
+        def wrapper(*args, **kwargs):
+            output = func(*args, **kwargs)
+            print("Subprocess output:")
+            for line_ in os.fsdecode(output).split("\n"):
+                print(line_)
+            return output
+
+        return wrapper
 
 
 subprocess.Popen = CustomPopen
