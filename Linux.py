@@ -26,11 +26,11 @@ class CustomPopen(subprocess.Popen):
     def __getattribute__(self, name_):
         att = super().__getattribute__(name_)
         if name_ == "stdout" and att is not None:
-            att.read = self.wrapper_read(att.read)
+            att.read = self.read_wrapper(att.read)
         return att
 
     @staticmethod
-    def wrapper_read(func):
+    def read_wrapper(func):
 
         if func.__name__ == "wrapper":
             return func
