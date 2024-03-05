@@ -4,16 +4,22 @@ import shutil
 import subprocess
 from ctypes import util
 
+print("\n---Running Linux.py---\n")
 
 class CustomPopen(subprocess.Popen):
 
     def __init__(self, *args, **kwargs):
-        print(f"Subprocess command:\n\t{' '.join(args[0])}")
+        print(f"Subprocess command:\n  {' '.join(args[0])}")
         super().__init__(*args, **kwargs)
 
     def communicate(self, *args, **kwargs):
         out, _ = super().communicate(*args, **kwargs)
-        print(f"Subprocess output:\n\t{os.fsdecode(out)}")
+        out = out.rstrip()
+        print("Subprocess output:")
+        if out:
+            print(f"  {os.fsdecode(out)}")
+        else:
+            print(f"  Output is empty")
         return out, _
 
     def __get_attribute__(self, name):
