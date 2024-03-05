@@ -1,3 +1,6 @@
+"""
+This file was deprecated with general Linux.py implementation
+"""
 import inspect
 import os
 import re
