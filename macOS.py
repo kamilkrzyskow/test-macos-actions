@@ -2,16 +2,18 @@ import os
 from ctypes.macholib import dyld
 from itertools import chain
 
+print(f"\n---Running {os.path.basename(__file__)}---\n")
+
 library_names = ("cairo-2", "cairo", "libcairo-2")
 filenames = ("libcairo.so.2", "libcairo.2.dylib", "libcairo-2.dll")
-found_path = ""
+first_found = ""
 names = []
 
 for name in library_names:
     names += [
-        'lib%s.dylib' % name,
-        '%s.dylib' % name,
-        '%s.framework/%s' % (name, name)
+        "lib%s.dylib" % name,
+        "%s.dylib" % name,
+        "%s.framework/%s" % (name, name),
     ]
 
 for name in names:
@@ -19,26 +21,31 @@ for name in names:
         chain(
             dyld.dyld_override_search(name),
             dyld.dyld_executable_path_search(name),
-            dyld.dyld_default_search(name)
+            dyld.dyld_default_search(name),
         )
     ):
-        print(path)
         if os.path.isfile(path):
-            found_path = path
-            break
+            print(f"Found: {path}")
+            if not first_found:
+                first_found = path
+            continue
+
         try:
             if dyld._dyld_shared_cache_contains_path(path):
-                found_path = path
-                break
+                print(f"Found: {path}")
+                if not first_found:
+                    first_found = path
+                continue
         except NotImplementedError:
             pass
-    if found_path:
-        filenames = (found_path, ) + filenames
-        break
-else:
-    found_path = "not found"
 
-print(f"The path is {found_path}")
+        print(f"Doesn't exist: {path}")
+    print("---")
+
+if first_found:
+    filenames = (first_found,) + filenames
+
+print(f"The path is {first_found or 'not found'}")
 print("List of files that FFI will try to load:")
 for filename in filenames:
     print("-", filename)
