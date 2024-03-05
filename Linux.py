@@ -4,7 +4,8 @@ import shutil
 import subprocess
 from ctypes import util
 
-print("\n---Running Linux.py---\n")
+print(f"\n---Running {os.path.basename(__file__)}---\n")
+
 
 class CustomPopen(subprocess.Popen):
 
@@ -22,23 +23,22 @@ class CustomPopen(subprocess.Popen):
             print(f"  Output is empty")
         return out, _
 
-    def __get_attribute__(self, name):
-        att = super().__getattribute__(name)
-        if name == "stdout":
+    def __get_attribute__(self, name_):
+        att = super().__getattribute__(name_)
+        if name_ == "stdout":
             print("Subprocess output:")
-            for line in att:
-                print(os.fsdecode(line))
+            for line_ in att:
+                print(os.fsdecode(line_))
         return att
 
 
 subprocess.Popen = CustomPopen
 
-print("ctypes.util script with find_library:")
+print("ctypes.util script with the find_library:")
 print(inspect.getsourcefile(util.find_library), end="\n\n")
 
 print("find_library function:")
-func_lines = list(map(str.rstrip,
-                      inspect.getsourcelines(util.find_library)[0]))
+func_lines = list(map(str.rstrip, inspect.getsourcelines(util.find_library)[0]))
 indent = len(func_lines[0]) - len(func_lines[0].lstrip())
 for line in func_lines:
     print(line.replace(" " * indent, "", 1))
@@ -46,7 +46,7 @@ for line in func_lines:
 library_names = ("cairo-2", "cairo", "libcairo-2")
 filenames = ("libcairo.so.2", "libcairo.2.dylib", "libcairo-2.dll")
 c_compiler = shutil.which("gcc") or shutil.which("cc")
-ld_env = os.environ.get('LD_LIBRARY_PATH')
+ld_env = os.environ.get("LD_LIBRARY_PATH")
 first_found = ""
 
 print("\nLD_LIBRARY_PATH =", ld_env, end="\n\n")
@@ -92,7 +92,7 @@ for name in library_names:
         print("---")
 
 if first_found:
-    filenames = (first_found, ) + filenames
+    filenames = (first_found,) + filenames
 
 print(f"The path is {first_found or 'not found'}")
 print("List of files that FFI will try to load:")
