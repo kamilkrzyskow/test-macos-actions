@@ -61,4 +61,4 @@ jobs:
           python ./Linux.py
           python ./Windows.py
           python ./__main__.py
-          ls -la venv
+          ls venv
