@@ -24,6 +24,7 @@ jobs:
           python ./Linux.py
           python ./macOS.py
           python ./__main__.py
+          ls -la venv
   Linux:
     runs-on: ubuntu-latest
     steps:
@@ -41,6 +42,7 @@ jobs:
           pip install cairosvg
           python ./Linux.py
           python ./__main__.py
+          ls -la venv
   Windows:
     runs-on: windows-latest
     steps:
@@ -59,3 +61,4 @@ jobs:
           python ./Linux.py
           python ./Windows.py
           python ./__main__.py
+          ls -la venv
