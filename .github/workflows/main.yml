@@ -18,6 +18,7 @@ jobs:
           python-version: 3.12
       - name: Run Python stuff in order
         run: |
+          python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd(), '\n'); pp([sys.path, sys.prefix, sys.exec_prefix, site.PREFIXES, site.getsitepackages()])"
           python -m venv venv
           source venv/bin/activate
           pip install cairosvg
@@ -25,8 +26,8 @@ jobs:
           # python ./macOS.py
           # python ./__main__.py
           # ls -la venv
-          # python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd()); pp(site.getsitepackages()); pp(sys.path)"
-          curl "https://raw.githubusercontent.com/kamilkrzyskow/test-macos-actions/main/macOS.py" | python -
+          python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd(), '\n'); pp([sys.path, sys.prefix, sys.exec_prefix, site.PREFIXES, site.getsitepackages()])"
+          # curl "https://raw.githubusercontent.com/kamilkrzyskow/test-macos-actions/main/macOS.py" | python -
   Linux:
     runs-on: ubuntu-latest
     steps:
@@ -39,14 +40,15 @@ jobs:
           python-version: 3.12
       - name: Run Python stuff in order
         run: |
+          python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd(), '\n'); pp([sys.path, sys.prefix, sys.exec_prefix, site.PREFIXES, site.getsitepackages()])"
           python -m venv venv
           source venv/bin/activate
           pip install cairosvg
           # python ./Linux.py
           # python ./__main__.py
           # ls -la venv
-          # python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd()); pp(site.getsitepackages()); pp(sys.path)"
-          curl "https://raw.githubusercontent.com/kamilkrzyskow/test-macos-actions/main/Linux.py" | python -
+          python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd(), '\n'); pp([sys.path, sys.prefix, sys.exec_prefix, site.PREFIXES, site.getsitepackages()])"
+          # curl "https://raw.githubusercontent.com/kamilkrzyskow/test-macos-actions/main/Linux.py" | python -
   Windows:
     runs-on: windows-latest
     steps:
@@ -59,6 +61,7 @@ jobs:
           python-version: 3.12
       - name: Run Python stuff in order
         run: |
+          python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd(), '\n'); pp([sys.path, sys.prefix, sys.exec_prefix, site.PREFIXES, site.getsitepackages()])"
           python -m venv venv
           ./venv/Scripts/activate
           pip install cairosvg
@@ -66,5 +69,5 @@ jobs:
           # python ./Windows.py
           # python ./__main__.py
           # ls venv
-          # python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd()); pp(site.getsitepackages()); pp(sys.path)"
-          (Invoke-WebRequest "https://raw.githubusercontent.com/kamilkrzyskow/test-macos-actions/main/Windows.py").Content | python -
+          python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd(), '\n'); pp([sys.path, sys.prefix, sys.exec_prefix, site.PREFIXES, site.getsitepackages()])"
+          # (Invoke-WebRequest "https://raw.githubusercontent.com/kamilkrzyskow/test-macos-actions/main/Windows.py").Content | python -
