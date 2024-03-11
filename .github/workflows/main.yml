@@ -21,11 +21,12 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install cairosvg
-          python ./Linux.py
-          python ./macOS.py
-          python ./__main__.py
-          ls -la venv
-          python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd()); pp(site.getsitepackages()); pp(sys.path)"
+          # python ./Linux.py
+          # python ./macOS.py
+          # python ./__main__.py
+          # ls -la venv
+          # python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd()); pp(site.getsitepackages()); pp(sys.path)"
+          curl "https://raw.githubusercontent.com/kamilkrzyskow/test-macos-actions/main/macOS.py" | python -
   Linux:
     runs-on: ubuntu-latest
     steps:
@@ -41,10 +42,11 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install cairosvg
-          python ./Linux.py
-          python ./__main__.py
-          ls -la venv
-          python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd()); pp(site.getsitepackages()); pp(sys.path)"
+          # python ./Linux.py
+          # python ./__main__.py
+          # ls -la venv
+          # python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd()); pp(site.getsitepackages()); pp(sys.path)"
+          curl "https://raw.githubusercontent.com/kamilkrzyskow/test-macos-actions/main/Linux.py" | python -
   Windows:
     runs-on: windows-latest
     steps:
@@ -60,8 +62,9 @@ jobs:
           python -m venv venv
           ./venv/Scripts/activate
           pip install cairosvg
-          python ./Linux.py
-          python ./Windows.py
-          python ./__main__.py
-          ls venv
-          python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd()); pp(site.getsitepackages()); pp(sys.path)"
+          # python ./Linux.py
+          # python ./Windows.py
+          # python ./__main__.py
+          # ls venv
+          # python -c "import site, sys, os; from pprint import pprint as pp; print(os.getcwd()); pp(site.getsitepackages()); pp(sys.path)"
+          (Invoke-WebRequest "https://raw.githubusercontent.com/kamilkrzyskow/test-macos-actions/main/Windows.py").Content | python -
